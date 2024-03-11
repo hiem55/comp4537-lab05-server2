@@ -24,19 +24,16 @@ const server = http.createServer((req, res) => {
 
     // Parse the URL path and handle routes
     if (reqUrl.pathname === path && req.method === 'GET') {
-        console.log("Received Get Request")
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'GET request received' }));
-        // let body = '';
-        // req.on('data', (chunk) => {
-        //     body += chunk;
-        // });
-        // req.on('end', () => {
-        //     console.log(`Server received GET request body: ", ${body}`)
-        //     res.writeHead(200, { 'Content-Type': 'application/json' });
-        //     // Pool.query(body)
-        //     res.end(JSON.stringify({ message: 'GET request received', body }));
-        // });
+    //     console.log("Received Get Request")
+    //     res.writeHead(200, { 'Content-Type': 'application/json' });
+    //     res.end(JSON.stringify({ message: 'GET request received' }));
+        req.on('data', (chunk) => {
+            body += chunk;
+        });
+        req.on('end', () => {
+            query(body)
+        });
+        res.end(JSON.stringify({ message: 'GET request received', body }));
     } else if (reqUrl.pathname === path && req.method === 'POST') {
         console.log("Received Post Request")
         let body = '';
