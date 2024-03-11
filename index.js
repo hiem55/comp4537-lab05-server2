@@ -45,9 +45,22 @@ const server = http.createServer((req, res) => {
         });
         req.on('end', () => {
             console.log(`Server received POST request body: ", ${body}`)
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            query(body)
-            res.end(JSON.stringify({ message: 'POST request received', body }));
+            // Parse the request body to extract data
+            const data = JSON.parse(body);
+            const queryStr = data.query;
+
+            // Execute the SQL query
+            pool.query(queryStr)
+                .then(() => {
+                    console.log("Data inserted successfully");
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'POST request received' }));
+                })
+                .catch((error) => {
+                    console.error("Error inserting data:", error);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Error inserting data' }));
+                });
         });
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
