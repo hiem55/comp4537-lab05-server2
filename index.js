@@ -31,9 +31,9 @@ const server = http.createServer((req, res) => {
             body += chunk;
         });
         req.on('end', () => {
-            query(body)
+            results = query(body)
         });
-        res.end(JSON.stringify({ message: 'GET request received', body }));
+        res.end(JSON.stringify({ message: 'GET request received', results }));
     } else if (reqUrl.pathname === path && req.method === 'POST') {
         console.log("Received Post Request")
         let body = '';
