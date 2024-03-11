@@ -26,8 +26,17 @@ const server = http.createServer((req, res) => {
     if (reqUrl.pathname === path && req.method === 'GET') {
         console.log("Received Get Request")
 
-        // Extract the query parameter from the URL
-        const queryStr = reqUrl.query.query;
+
+        // Extract the query parameter from request headers
+        const queryStr = req.headers['x-query'];
+        console.log("Query parameter:", queryStr);
+
+        if (!queryStr) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Query parameter is required' }));
+            return;
+        }
+
         pool.query(queryStr)
             .then((result) => {
                 console.log("Data retrieved successfully");
