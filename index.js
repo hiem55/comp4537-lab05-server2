@@ -2,7 +2,7 @@ const http = require('http');
 const url = require('url');
 const { parse } = require('querystring');
 require('dotenv').config();
-import { pool, query } from './database.js';
+const { pool, query } = require('./database.js');
 
 const PORT = process.env.PORT || 5000;
 const path = "/patient" //replace later
@@ -26,7 +26,6 @@ const server = http.createServer((req, res) => {
     if (reqUrl.pathname === path && req.method === 'GET') {
         console.log("Received Get Request")
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        query("INSERT INTO patient (name, dateOfBirth) VALUES ('Test 1', '1990-05-15');")
         res.end(JSON.stringify({ message: 'GET request received' }));
         // let body = '';
         // req.on('data', (chunk) => {
@@ -47,7 +46,7 @@ const server = http.createServer((req, res) => {
         req.on('end', () => {
             console.log(`Server received POST request body: ", ${body}`)
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            // query(body)
+            query(body)
             res.end(JSON.stringify({ message: 'POST request received', body }));
         });
     } else {
