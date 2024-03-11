@@ -7,6 +7,15 @@ const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 });
 
+const query = async (text) => {
+  try {
+    const res = await pool.query(text);
+    return res;
+  } catch (err) {
+    console.log(err.stack);
+  }
+}
+
 // Connect to the PostgreSQL database
 pool.connect((err) => {
   if (err) {
@@ -16,6 +25,6 @@ pool.connect((err) => {
   }
 });
 
-module.exports = pool;
+module.exports = { pool, query };
 
 
