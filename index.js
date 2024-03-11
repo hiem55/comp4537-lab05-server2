@@ -4,22 +4,38 @@ const { parse } = require('querystring');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 5000;
-const path = "temp" //replace later
+const path = "/patient" //replace later
 
 const server = http.createServer((req, res) => {
+
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    // Handle preflight requests for CORS
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
     const reqUrl = url.parse(req.url, true);
 
     // Parse the URL path and handle routes
     if (reqUrl.pathname === path && req.method === 'GET') {
-        bookRouter.getBooks(req, res);
+        console.log("Received Get Request")
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'GET request received' }));
     } else if (reqUrl.pathname === path && req.method === 'POST') {
+        console.log("Received Post Request")
         let body = '';
         req.on('data', (chunk) => {
-            body += chunk.toString();
+            body += chunk;
         });
         req.on('end', () => {
-            const data = parse(body);
-            bookRouter.createBook(req, res, data);
+            console.log(`Server received POST request body: ", ${body}`)
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'POST request received', body }));
         });
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
