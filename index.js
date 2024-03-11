@@ -2,7 +2,7 @@ const http = require('http');
 const url = require('url');
 const { parse } = require('querystring');
 require('dotenv').config();
-import { pool } from '../database.js';
+import { pool } from './database.js';
 
 const PORT = process.env.PORT || 5000;
 const path = "/patient" //replace later
