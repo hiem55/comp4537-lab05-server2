@@ -26,6 +26,7 @@ const server = http.createServer((req, res) => {
     if (reqUrl.pathname === path && req.method === 'GET') {
         console.log("Received Get Request")
         res.writeHead(200, { 'Content-Type': 'application/json' });
+        query("INSERT INTO patient (name, dateOfBirth) VALUES ('Test 1', '1990-05-15');")
         res.end(JSON.stringify({ message: 'GET request received' }));
         // let body = '';
         // req.on('data', (chunk) => {
@@ -47,7 +48,6 @@ const server = http.createServer((req, res) => {
             console.log(`Server received POST request body: ", ${body}`)
             res.writeHead(200, { 'Content-Type': 'application/json' });
             // query(body)
-            query("INSERT INTO patient (name, dateOfBirth) VALUES ('Test 1', '1990-05-15');")
             res.end(JSON.stringify({ message: 'POST request received', body }));
         });
     } else {
