@@ -46,8 +46,8 @@ const server = http.createServer((req, res) => {
         req.on('end', () => {
             console.log(`Server received POST request body: ", ${body}`)
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            console.log(body)
-            query(body)
+            // query(body)
+            query("INSERT INTO patient (name, dateOfBirth) VALUES ('Test 1', '1990-05-15');")
             res.end(JSON.stringify({ message: 'POST request received', body }));
         });
     } else {
