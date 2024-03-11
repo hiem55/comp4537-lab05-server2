@@ -1,6 +1,4 @@
-const pg = require('pg');
-
-const Pool = pg.Pool;
+const { Pool } = require('pg');
 
 // Create a pool instance for PostgreSQL connection
 const pool = new Pool({
@@ -16,6 +14,6 @@ pool.connect((err) => {
   }
 });
 
-module.exports = pool;
+module.exports = { pool };
 
 
