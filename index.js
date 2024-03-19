@@ -30,6 +30,7 @@ const server = http.createServer((req, res) => {
         const { url: requestUrl } = req;
         let queryStr = decodeURIComponent(requestUrl.split([1]));
         console.log("Query parameter:", queryStr);
+        queryString = queryString.replace(/^\/"(.*)"$/, '$1');
 
         pool.query(queryStr)
             .then((result) => {
