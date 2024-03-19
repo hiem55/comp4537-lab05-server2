@@ -20,12 +20,15 @@ const server = http.createServer((req, res) => {
     }
 
     // Parse the URL path and handle routes
-    const reqUrl = url.parse(req.url, true);
+    // const reqUrl = url.parse(req.url, true);
     if (req.method === 'GET') {
         console.log("Received Get Request");
 
         // Extract the query parameter from the URL
-        const queryStr = reqUrl.query.query;
+        // const queryStr = reqUrl.query;
+        // console.log("Query parameter:", queryStr);
+        const { url: requestUrl } = req;
+        let queryStr = decodeURIComponent(requestUrl.split([1]));
         console.log("Query parameter:", queryStr);
 
         pool.query(queryStr)
