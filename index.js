@@ -5,7 +5,6 @@ require('dotenv').config();
 const { pool, query } = require('./database.js');
 
 const PORT = process.env.PORT || 5000;
-const path = "/patient" //replace later
 
 const server = http.createServer((req, res) => {
 
@@ -22,7 +21,7 @@ const server = http.createServer((req, res) => {
 
     // Parse the URL path and handle routes
     const reqUrl = url.parse(req.url, true);
-    if (reqUrl.pathname === path && req.method === 'GET') {
+    if (req.method === 'GET') {
         console.log("Received Get Request");
 
         // Extract the query parameter from the URL
@@ -40,7 +39,7 @@ const server = http.createServer((req, res) => {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Error retrieving data' }));
             });
-    } else if (reqUrl.pathname === path && req.method === 'POST') {
+    } else if (req.method === 'POST') {
         console.log("Received Post Request")
         let body = '';
         req.on('data', (chunk) => {
