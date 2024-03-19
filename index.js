@@ -29,8 +29,8 @@ const server = http.createServer((req, res) => {
         // console.log("Query parameter:", queryStr);
         const { url: requestUrl } = req;
         let queryStr = decodeURIComponent(requestUrl.split([1]));
+        queryStr = queryStr.replace("/", "")
         console.log("Query parameter:", queryStr);
-        queryStr = queryStr.replace(/^\/"(.*)"$/, '$1');
 
         pool.query(queryStr)
             .then((result) => {
