@@ -35,12 +35,18 @@ const server = http.createServer((req, res) => {
         pool.query(queryStr)
             .then((result) => {
                 console.log("Data retrieved successfully");
-                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.writeHead(200, { 
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                });
                 res.end(JSON.stringify(result.rows));
             })
             .catch((error) => {
                 console.error("Error retrieving data:", error);
-                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.writeHead(500, { 
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                });
                 res.end(JSON.stringify({ message: 'Error retrieving data' }));
             });
     } else if (req.method === 'POST') {
