@@ -54,7 +54,7 @@ const server = http.createServer((req, res) => {
                         CREATE TABLE patient (
                             patientId SERIAL PRIMARY KEY,
                             name VARCHAR(100) NOT NULL,
-                            dateOfBirth datetime NOT NULL
+                            dateOfBirth DATETIME NOT NULL
                         )
                     `;
                     return pool.query(createTableQuery);
@@ -99,7 +99,7 @@ const server = http.createServer((req, res) => {
                         CREATE TABLE patient (
                             patientId SERIAL PRIMARY KEY,
                             name VARCHAR(100) NOT NULL,
-                            dateOfBirth datetime NOT NULL
+                            dateOfBirth DATETIME NOT NULL
                         )
                     `;
                     return pool.query(createTableQuery);
