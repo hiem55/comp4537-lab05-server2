@@ -52,9 +52,9 @@ const server = http.createServer((req, res) => {
                     // If 'patient' table does not exist, create it
                     const createTableQuery = `
                         CREATE TABLE patient (
-                            id SERIAL PRIMARY KEY,
-                            name VARCHAR(255) NOT NULL,
-                            age INT NOT NULL
+                            patientId SERIAL PRIMARY KEY,
+                            name VARCHAR(100) NOT NULL,
+                            dateOfBirth INT NOT NULL
                         )
                     `;
                     return pool.query(createTableQuery);
@@ -97,9 +97,9 @@ const server = http.createServer((req, res) => {
                     // If 'patient' table does not exist, create it
                     const createTableQuery = `
                         CREATE TABLE patient (
-                            id SERIAL PRIMARY KEY,
-                            name VARCHAR(255) NOT NULL,
-                            age INT NOT NULL
+                            patientId SERIAL PRIMARY KEY,
+                            name VARCHAR(100) NOT NULL,
+                            dateOfBirth INT NOT NULL
                         )
                     `;
                     return pool.query(createTableQuery);
